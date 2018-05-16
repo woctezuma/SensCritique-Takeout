@@ -2,8 +2,8 @@
 
 [![PyPI status][PyPI image]][PyPI] [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Coveralls image]][Coveralls] [![Code coverage BIS][Codecov image]][Codecov]
 
-  [PyPI]: https://pypi.python.org/pypi/SensCritique-Takeout
-  [PyPI image]: https://badge.fury.io/py/SensCritique-Takeout.svg
+  [PyPI]: https://pypi.python.org/pypi/senscritique
+  [PyPI image]: https://badge.fury.io/py/senscritique.svg
 
   [Build]: https://travis-ci.org/woctezuma/SensCritique-Takeout
   [Build image]: https://travis-ci.org/woctezuma/SensCritique-Takeout.svg?branch=master
@@ -19,6 +19,14 @@
   [Codecov image]: https://codecov.io/gh/woctezuma/SensCritique-Takeout/branch/master/graph/badge.svg
 
 This repository contains Python code to export your data from [SensCritique.com](https://www.senscritique.com).
+
+## Installation
+
+The code is packaged for [PyPI](https://pypi.org/project/senscritique/), so that the installation consists in running:
+
+```bash
+pip install senscritique
+```
 
 ## References
 
