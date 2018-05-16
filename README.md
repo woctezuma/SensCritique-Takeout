@@ -1,6 +1,9 @@
 # SensCritique Takeout
 
-[![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Coveralls image]][Coveralls] [![Code coverage BIS][Codecov image]][Codecov]
+[![PyPI status][PyPI image]][PyPI] [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Coveralls image]][Coveralls] [![Code coverage BIS][Codecov image]][Codecov]
+
+  [PyPI]: https://pypi.python.org/pypi/SensCritique-Takeout
+  [PyPI image]: https://badge.fury.io/py/SensCritique-Takeout.svg
 
   [Build]: https://travis-ci.org/woctezuma/SensCritique-Takeout
   [Build image]: https://travis-ci.org/woctezuma/SensCritique-Takeout.svg?branch=master
