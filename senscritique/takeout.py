@@ -159,7 +159,7 @@ def parse_listes_page(user_name='wok', page_no=1):
 
         num_pages = get_num_pages(full_review_url)
 
-        listes_data[item_id]['elements'] = []
+        listes_data[item_id]['elements'] = dict()
 
         for page_no in range(num_pages):
 
@@ -176,9 +176,12 @@ def parse_listes_page(user_name='wok', page_no=1):
                 soup_comment = review_item.find_all('div', {'class': 'elli-annotation-content '})
 
                 element = get_item_id(soup_content)
+                name = read_soup_result(soup_content)
                 comment = read_soup_result(soup_comment, simplify_text=False)
 
-                listes_data[item_id]['elements'].append((element, comment))
+                listes_data[item_id]['elements'][element] = dict()
+                listes_data[item_id]['elements'][element]['name'] = name
+                listes_data[item_id]['elements'][element]['comment'] = comment
 
     return listes_data
 
