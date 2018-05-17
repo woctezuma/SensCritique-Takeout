@@ -19,8 +19,7 @@ def get_collection_url(user_name, page_no=1):
 
 
 def get_critiques_url(user_name, page_no=1):
-    url = get_base_url(user_name=user_name) + 'critiques#page-' + str(page_no) \
-          + '/filter-all/universe-all/order-publication/'
+    url = get_base_url(user_name=user_name) + 'critiques/page-' + str(page_no)
 
     return url
 
