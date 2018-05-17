@@ -28,6 +28,18 @@ class TestSensCritiqueMethods(unittest.TestCase):
 
         self.assertDictEqual(downloaded_data, loaded_data)
 
+    def test_parse_collection(self):
+        data = senscritique.parse_and_cache(user_name=self.test_get_user_example(), data_type='collection')
+        self.assertGreater(len(data), 0)
+
+    def test_parse_critiques(self):
+        data = senscritique.parse_and_cache(user_name=self.test_get_user_example(), data_type='critiques')
+        self.assertGreater(len(data), 0)
+
+    def test_parse_listes(self):
+        data = senscritique.parse_and_cache(user_name=self.test_get_user_example(), data_type='listes')
+        self.assertGreater(len(data), 0)
+
 
 if __name__ == '__main__':
     unittest.main()
