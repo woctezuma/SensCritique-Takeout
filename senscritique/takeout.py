@@ -34,6 +34,10 @@ def get_item_id(soup_name):
     return soup_name[0].attrs['id'].strip('product-title-')
 
 
+def get_review_id(soup_name):
+    return soup_name[0].attrs['data-sc-review-id']
+
+
 def improve_readability(text):
     return text.replace('\n', '').replace('\t', '')
 
@@ -86,22 +90,41 @@ def parse_critiques_page(user_name='wok', page_no=1):
 
     # TODO
 
-    collection_items = soup.find_all('li', 'elco-collection-item')
+    collection_items = soup.find_all('div', {'class': 'ere-box-main'})
 
     data = dict()
     for item in collection_items:
-        user_rating = item.find_all('div', {'class': 'elco-collection-rating user'})
-        name = item.find_all('a', {'class': 'elco-anchor'})
-        game_system = item.find_all('span', {'class': 'elco-gamesystem'})
-        release_date = item.find_all('span', {'class': 'elco-date'})
-        description = item.find_all('p', {'class': 'elco-baseline elco-options'})
-        author = item.find_all('a', {'class': 'elco-baseline-a'})
-        site_rating = item.find_all('a', {'class': 'erra-global'})
+        overview = item.find_all('button', {'class': 'ere-review-overview'})
+        title = item.find_all('h3', {'class': 'd-heading2 ere-review-heading'})
+        excerpt = item.find_all('p', {'class': 'ere-review-excerpt'})
+        game_system = item.find_all('span', {'class': 'ere-review-gamesystem'})
+        rating = item.find_all('div', {'class': 'elrua-useraction-action'})
+        link = item.find_all('a', {'class': 'ere-review-anchor'})
+        footer = item.find_all('footer', {'class': 'ere-review-details'})
 
-        item_id = get_item_id(name)
+        item_id = get_review_id(overview)
 
         data[item_id] = dict()
-        data[item_id]['name'] = read_soup_result(name)
+        data[item_id]['title'] = read_soup_result(title)
+        data[item_id]['excerpt'] = read_soup_result(excerpt)
+        data[item_id]['game_system'] = read_soup_result(game_system)
+        data[item_id]['rating'] = read_soup_result(rating)
+        data[item_id]['link'] = link[0].attrs['href']
+        data[item_id]['date'] = footer[0].find_all('time')[0].text
+
+        full_review_url = get_base_url() + data[item_id]['link']
+        full_soup = BeautifulSoup(requests.get(full_review_url).content, 'lxml')
+
+        review_items = full_soup.find_all('div', {'class': 'd-grid-main'})
+
+        for review_item in review_items:
+            content = review_item.find_all('div', {'class': 'rvi-review-content'})
+            stats = review_item.find_all('div', {'data-rel': 'likebar'})
+
+            data[item_id]['content'] = read_soup_result(content)
+            data[item_id]['upvotes'] = stats[0].attrs['data-sc-positive-count']
+            data[item_id]['downvotes'] = stats[0].attrs['data-sc-negative-count']
+
     return data
 
 
@@ -172,7 +195,7 @@ def parse_collection(user_name='wok', keyword='collection'):
 
     num_pages = get_num_pages(url)
 
-    print('Parsing {} pages of {} by {}.'.format(keyword, num_pages, user_name))
+    print('Parsing {} pages of {} by {}.'.format(num_pages, keyword, user_name))
 
     data = dict()
     for page_no in range(num_pages):
@@ -263,4 +286,5 @@ def parse_and_cache(user_name='wok', data_type='collection'):
 
 
 if __name__ == '__main__':
-    taken_out_data = parse_and_cache(user_name='wok', data_type='collection')
+    for keyword in ['collection', 'critiques', 'listes']:
+        taken_out_data = parse_and_cache(user_name='wok', data_type=keyword)
