@@ -18,6 +18,18 @@ def get_collection_url(user_name, page_no=1):
     return url
 
 
+def get_critiques_url(user_name, page_no=1):
+    url = get_base_url(user_name=user_name) + 'critiques#page-' + str(page_no) \
+          + '/filter-all/universe-all/order-publication/'
+
+    return url
+
+
+def get_listes_url(user_name, page_no=1):
+    url = get_base_url(user_name=user_name) + 'listes/all/all/likes/page-' + str(page_no)
+    return url
+
+
 def get_item_id(soup_name):
     return soup_name[0].attrs['id'].strip('product-title-')
 
@@ -68,8 +80,57 @@ def parse_collection_page(user_name='wok', page_no=1):
     return data
 
 
-def get_collection_num_pages(user_name='wok'):
-    url = get_collection_url(user_name=user_name, page_no=1)
+def parse_critiques_page(user_name='wok', page_no=1):
+    url = get_critiques_url(user_name=user_name, page_no=page_no)
+    soup = BeautifulSoup(requests.get(url).content, 'lxml')
+
+    # TODO
+
+    collection_items = soup.find_all('li', 'elco-collection-item')
+
+    data = dict()
+    for item in collection_items:
+        user_rating = item.find_all('div', {'class': 'elco-collection-rating user'})
+        name = item.find_all('a', {'class': 'elco-anchor'})
+        game_system = item.find_all('span', {'class': 'elco-gamesystem'})
+        release_date = item.find_all('span', {'class': 'elco-date'})
+        description = item.find_all('p', {'class': 'elco-baseline elco-options'})
+        author = item.find_all('a', {'class': 'elco-baseline-a'})
+        site_rating = item.find_all('a', {'class': 'erra-global'})
+
+        item_id = get_item_id(name)
+
+        data[item_id] = dict()
+        data[item_id]['name'] = read_soup_result(name)
+    return data
+
+
+def parse_listes_page(user_name='wok', page_no=1):
+    url = get_listes_url(user_name=user_name, page_no=page_no)
+    soup = BeautifulSoup(requests.get(url).content, 'lxml')
+
+    # TODO
+
+    collection_items = soup.find_all('li', 'elco-collection-item')
+
+    data = dict()
+    for item in collection_items:
+        user_rating = item.find_all('div', {'class': 'elco-collection-rating user'})
+        name = item.find_all('a', {'class': 'elco-anchor'})
+        game_system = item.find_all('span', {'class': 'elco-gamesystem'})
+        release_date = item.find_all('span', {'class': 'elco-date'})
+        description = item.find_all('p', {'class': 'elco-baseline elco-options'})
+        author = item.find_all('a', {'class': 'elco-baseline-a'})
+        site_rating = item.find_all('a', {'class': 'erra-global'})
+
+        item_id = get_item_id(name)
+
+        data[item_id] = dict()
+        data[item_id]['name'] = read_soup_result(name)
+    return data
+
+
+def get_num_pages(url):
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
 
     collection_pages = soup.find_all('a', {'class': 'eipa-anchor'})
@@ -82,23 +143,56 @@ def get_collection_num_pages(user_name='wok'):
     return num_pages
 
 
-def parse_collection(user_name='wok'):
-    num_pages = get_collection_num_pages(user_name=user_name)
+def get_keyword_home_url(user_name='wok', keyword='collection'):
+    home_page_no = 1
 
-    print('Parsing {} pages of collection by {}.'.format(num_pages, user_name))
+    if keyword == 'collection':
+        url = get_collection_url(user_name=user_name, page_no=home_page_no)
+    elif keyword == 'critiques':
+        url = get_critiques_url(user_name=user_name, page_no=home_page_no)
+    else:
+        url = get_listes_url(user_name=user_name, page_no=home_page_no)
+
+    return url
+
+
+def parse_keyword_page(user_name='wok', keyword='collection', page_no=1):
+    if keyword == 'collection':
+        page_data = parse_collection_page(user_name=user_name, page_no=page_no)
+    elif keyword == 'critiques':
+        page_data = parse_critiques_page(user_name=user_name, page_no=page_no)
+    else:
+        page_data = parse_listes_page(user_name=user_name, page_no=page_no)
+
+    return page_data
+
+
+def parse_collection(user_name='wok', keyword='collection'):
+    url = get_keyword_home_url(user_name=user_name, keyword=keyword)
+
+    num_pages = get_num_pages(url)
+
+    print('Parsing {} pages of {} by {}.'.format(keyword, num_pages, user_name))
 
     data = dict()
     for page_no in range(num_pages):
         real_page_no = page_no + 1
 
-        print('Parsing collection page n°{}'.format(real_page_no))
+        page_data = parse_keyword_page(user_name=user_name, keyword=keyword, page_no=real_page_no)
 
-        page_data = parse_collection_page(user_name=user_name, page_no=real_page_no)
+        print('[{} ; page n°{}] num_items = {}'.format(keyword, real_page_no, len(page_data)))
 
-        print('[page n°{}] num_items = {}'.format(real_page_no, len(page_data)))
         data.update(page_data)
 
     return data
+
+
+def parse_critiques(user_name='wok'):
+    return parse_collection(user_name=user_name, keyword='critiques')
+
+
+def parse_listes(user_name='wok'):
+    return parse_collection(user_name=user_name, keyword='listes')
 
 
 def get_data_folder():
@@ -140,6 +234,10 @@ def print_data(data, file_name=None):
 def parse(user_name='wok', data_type='collection'):
     if data_type == 'collection':
         data = parse_collection(user_name=user_name)
+    elif data_type == 'critiques':
+        data = parse_critiques(user_name=user_name)
+    elif data_type == 'listes':
+        data = parse_listes(user_name=user_name)
     else:
         data = dict()
 
@@ -165,4 +263,4 @@ def parse_and_cache(user_name='wok', data_type='collection'):
 
 
 if __name__ == '__main__':
-    data = parse_and_cache(user_name='wok', data_type='collection')
+    taken_out_data = parse_and_cache(user_name='wok', data_type='collection')
