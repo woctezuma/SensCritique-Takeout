@@ -42,8 +42,11 @@ def improve_readability(text):
     return text.replace('\n', '').replace('\t', '')
 
 
-def read_soup_result(soup_result):
-    text = [improve_readability(sample.text) for sample in soup_result]
+def read_soup_result(soup_result, simplify_text=True):
+    if simplify_text:
+        text = [improve_readability(sample.text) for sample in soup_result]
+    else:
+        text = [sample.text for sample in soup_result]
 
     if len(text) == 1:
         text = text[0]
@@ -88,8 +91,6 @@ def parse_critiques_page(user_name='wok', page_no=1):
     url = get_critiques_url(user_name=user_name, page_no=page_no)
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
 
-    # TODO
-
     collection_items = soup.find_all('div', {'class': 'ere-box-main'})
 
     data = dict()
@@ -132,24 +133,47 @@ def parse_listes_page(user_name='wok', page_no=1):
     url = get_listes_url(user_name=user_name, page_no=page_no)
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
 
-    # TODO
-
-    collection_items = soup.find_all('li', 'elco-collection-item')
+    collection_items = soup.find_all('li', {'class': 'elth-thumbnail by3'})
 
     data = dict()
     for item in collection_items:
-        user_rating = item.find_all('div', {'class': 'elco-collection-rating user'})
-        name = item.find_all('a', {'class': 'elco-anchor'})
-        game_system = item.find_all('span', {'class': 'elco-gamesystem'})
-        release_date = item.find_all('span', {'class': 'elco-date'})
-        description = item.find_all('p', {'class': 'elco-baseline elco-options'})
-        author = item.find_all('a', {'class': 'elco-baseline-a'})
-        site_rating = item.find_all('a', {'class': 'erra-global'})
+        category = item.find_all('span', {'class': 'elth-universe-label type-1'})
+        overview = item.find_all('a', {'class': 'elth-thumbnail-title'})
 
-        item_id = get_item_id(name)
+        link = overview[0].attrs['href']
+
+        item_id = int(link.rsplit('/')[-1])
 
         data[item_id] = dict()
-        data[item_id]['name'] = read_soup_result(name)
+        data[item_id]['category'] = read_soup_result(category)
+        data[item_id]['name'] = read_soup_result(overview)
+        data[item_id]['link'] = link
+
+        full_review_url = get_base_url() + data[item_id]['link']
+
+        num_pages = get_num_pages(full_review_url)
+
+        data['elements'] = []
+
+        for page_no in range(num_pages):
+
+            current_url = full_review_url + '#page-' + str(page_no + 1)
+            full_soup = BeautifulSoup(requests.get(current_url).content, 'lxml')
+
+            description = full_soup.find_all('div', {'data-rel': 'linkify list-description'})
+            data[item_id]['description'] = read_soup_result(description)
+
+            review_items = full_soup.find_all('div', {'class': 'elli-content'})
+
+            for review_item in review_items:
+                soup_content = review_item.find_all('a', {'class': 'elco-anchor'})
+                soup_comment = review_item.find_all('div', {'class': 'elli-annotation-content '})
+
+                element = get_item_id(soup_content)
+                comment = read_soup_result(soup_comment, simplify_text=False)
+
+                data['elements'].append((element, comment))
+
     return data
 
 
