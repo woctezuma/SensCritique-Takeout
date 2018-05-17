@@ -30,15 +30,15 @@ class TestSensCritiqueMethods(unittest.TestCase):
 
     def test_parse_collection(self):
         data = senscritique.parse_and_cache(user_name=self.test_get_user_example(), data_type='collection')
-        self.assertGreater(len(data), 0)
+        self.assertEqual(len(data), 1)
 
     def test_parse_critiques(self):
-        data = senscritique.parse_and_cache(user_name=self.test_get_user_example(), data_type='critiques')
-        self.assertGreater(len(data), 0)
+        data = senscritique.parse_and_cache(user_name='MrMez', data_type='critiques')
+        self.assertEqual(len(data), 2)
 
     def test_parse_listes(self):
-        data = senscritique.parse_and_cache(user_name=self.test_get_user_example(), data_type='listes')
-        self.assertGreater(len(data), 0)
+        data = senscritique.parse_and_cache(user_name='zoruninho', data_type='listes')
+        self.assertEqual(len(data), 64)
 
 
 if __name__ == '__main__':
