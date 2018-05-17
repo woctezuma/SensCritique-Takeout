@@ -9,14 +9,14 @@ setup(
     install_requires=[
         'beautifulsoup4',
     ],
-    version='0.1',
+    version='0.2',
     description='SensCritique Takeout on PyPI',
     long_description='Export your data from SensCritique.com, similarly to Google Takeout.',
     long_description_content_type='text/x-rst',
     author='Wok',
     author_email='wok@tuta.io',
     url='https://github.com/woctezuma/SensCritique-Takeout',
-    download_url='https://github.com/woctezuma/SensCritique-Takeout/archive/0.1.tar.gz',
+    download_url='https://github.com/woctezuma/SensCritique-Takeout/archive/0.2.tar.gz',
     keywords=['senscritique', 'takeout', 'takeaway'],
     classifiers=[
         'Topic :: Games/Entertainment',
