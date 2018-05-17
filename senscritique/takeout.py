@@ -93,7 +93,7 @@ def parse_critiques_page(user_name='wok', page_no=1):
 
     collection_items = soup.find_all('div', {'class': 'ere-box-main'})
 
-    data = dict()
+    review_data = dict()
     for item in collection_items:
         overview = item.find_all('button', {'class': 'ere-review-overview'})
         title = item.find_all('h3', {'class': 'd-heading2 ere-review-heading'})
@@ -105,15 +105,15 @@ def parse_critiques_page(user_name='wok', page_no=1):
 
         item_id = get_review_id(overview)
 
-        data[item_id] = dict()
-        data[item_id]['title'] = read_soup_result(title)
-        data[item_id]['excerpt'] = read_soup_result(excerpt)
-        data[item_id]['game_system'] = read_soup_result(game_system)
-        data[item_id]['rating'] = read_soup_result(rating)
-        data[item_id]['link'] = link[0].attrs['href']
-        data[item_id]['date'] = footer[0].find_all('time')[0].text
+        review_data[item_id] = dict()
+        review_data[item_id]['title'] = read_soup_result(title)
+        review_data[item_id]['excerpt'] = read_soup_result(excerpt)
+        review_data[item_id]['game_system'] = read_soup_result(game_system)
+        review_data[item_id]['rating'] = read_soup_result(rating)
+        review_data[item_id]['link'] = link[0].attrs['href']
+        review_data[item_id]['date'] = footer[0].find_all('time')[0].text
 
-        full_review_url = get_base_url() + data[item_id]['link']
+        full_review_url = get_base_url() + review_data[item_id]['link']
         full_soup = BeautifulSoup(requests.get(full_review_url).content, 'lxml')
 
         review_items = full_soup.find_all('div', {'class': 'd-grid-main'})
@@ -122,11 +122,11 @@ def parse_critiques_page(user_name='wok', page_no=1):
             content = review_item.find_all('div', {'class': 'rvi-review-content'})
             stats = review_item.find_all('div', {'data-rel': 'likebar'})
 
-            data[item_id]['content'] = read_soup_result(content)
-            data[item_id]['upvotes'] = stats[0].attrs['data-sc-positive-count']
-            data[item_id]['downvotes'] = stats[0].attrs['data-sc-negative-count']
+            review_data[item_id]['content'] = read_soup_result(content)
+            review_data[item_id]['upvotes'] = stats[0].attrs['data-sc-positive-count']
+            review_data[item_id]['downvotes'] = stats[0].attrs['data-sc-negative-count']
 
-    return data
+    return review_data
 
 
 def parse_listes_page(user_name='wok', page_no=1):
@@ -135,7 +135,7 @@ def parse_listes_page(user_name='wok', page_no=1):
 
     collection_items = soup.find_all('li', {'class': 'elth-thumbnail by3'})
 
-    data = dict()
+    listes_data = dict()
     for item in collection_items:
         category = item.find_all('span', {'class': 'elth-universe-label type-1'})
         overview = item.find_all('a', {'class': 'elth-thumbnail-title'})
@@ -144,16 +144,16 @@ def parse_listes_page(user_name='wok', page_no=1):
 
         item_id = int(link.rsplit('/')[-1])
 
-        data[item_id] = dict()
-        data[item_id]['category'] = read_soup_result(category)
-        data[item_id]['name'] = read_soup_result(overview)
-        data[item_id]['link'] = link
+        listes_data[item_id] = dict()
+        listes_data[item_id]['category'] = read_soup_result(category)
+        listes_data[item_id]['name'] = read_soup_result(overview)
+        listes_data[item_id]['link'] = link
 
-        full_review_url = get_base_url() + data[item_id]['link']
+        full_review_url = get_base_url() + listes_data[item_id]['link']
 
         num_pages = get_num_pages(full_review_url)
 
-        data['elements'] = []
+        listes_data['elements'] = []
 
         for page_no in range(num_pages):
 
@@ -161,7 +161,7 @@ def parse_listes_page(user_name='wok', page_no=1):
             full_soup = BeautifulSoup(requests.get(current_url).content, 'lxml')
 
             description = full_soup.find_all('div', {'data-rel': 'linkify list-description'})
-            data[item_id]['description'] = read_soup_result(description)
+            listes_data[item_id]['description'] = read_soup_result(description)
 
             review_items = full_soup.find_all('div', {'class': 'elli-content'})
 
@@ -172,9 +172,9 @@ def parse_listes_page(user_name='wok', page_no=1):
                 element = get_item_id(soup_content)
                 comment = read_soup_result(soup_comment, simplify_text=False)
 
-                data['elements'].append((element, comment))
+                listes_data['elements'].append((element, comment))
 
-    return data
+    return listes_data
 
 
 def get_num_pages(url):
