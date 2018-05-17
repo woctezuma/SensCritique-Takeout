@@ -89,6 +89,7 @@ def parse_collection_page(user_name='wok', page_no=1):
 
 def parse_critiques_page(user_name='wok', page_no=1):
     url = get_critiques_url(user_name=user_name, page_no=page_no)
+    print(url)
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
 
     collection_items = soup.find_all('div', {'class': 'ere-box-main'})
@@ -118,6 +119,8 @@ def parse_critiques_page(user_name='wok', page_no=1):
 
         review_items = full_soup.find_all('div', {'class': 'd-grid-main'})
 
+        print(review_data[item_id]['title'])
+
         for review_item in review_items:
             content = review_item.find_all('div', {'class': 'rvi-review-content'})
             stats = review_item.find_all('div', {'data-rel': 'likebar'})
@@ -131,6 +134,7 @@ def parse_critiques_page(user_name='wok', page_no=1):
 
 def parse_listes_page(user_name='wok', page_no=1):
     url = get_listes_url(user_name=user_name, page_no=page_no)
+    print(url)
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
 
     collection_items = soup.find_all('li', {'class': 'elth-thumbnail by3'})
@@ -148,6 +152,8 @@ def parse_listes_page(user_name='wok', page_no=1):
         listes_data[item_id]['category'] = read_soup_result(category)
         listes_data[item_id]['name'] = read_soup_result(overview)
         listes_data[item_id]['link'] = link
+
+        print(listes_data[item_id]['name'])
 
         full_review_url = get_base_url() + listes_data[item_id]['link']
 
