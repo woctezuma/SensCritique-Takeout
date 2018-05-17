@@ -116,6 +116,9 @@ def parse_critiques_page(user_name='wok', page_no=1):
         full_review_url = get_base_url() + review_data[item_id]['link']
         full_soup = BeautifulSoup(requests.get(full_review_url).content, 'lxml')
 
+        cover = full_soup.find_all('h1', {'class': 'rvi-cover-title'})
+        review_data[item_id]['full_title'] = read_soup_result(cover)
+
         review_items = full_soup.find_all('div', {'class': 'd-grid-main'})
 
         print(review_data[item_id]['title'])
