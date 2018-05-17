@@ -74,7 +74,10 @@ def get_collection_num_pages(user_name='wok'):
 
     collection_pages = soup.find_all('a', {'class': 'eipa-anchor'})
 
-    num_pages = int(collection_pages[-1].attrs['data-sc-pager-page'])
+    try:
+        num_pages = int(collection_pages[-1].attrs['data-sc-pager-page'])
+    except IndexError:
+        num_pages = 1
 
     return num_pages
 
