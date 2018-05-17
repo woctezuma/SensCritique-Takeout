@@ -30,7 +30,9 @@ pip install senscritique
 
 ## Usage
 
-Collections can be downloaded as follows:
+### Library (« collection »)
+
+Libraries can be downloaded as follows:
 
 ```python
 import senscritique
@@ -39,7 +41,27 @@ import senscritique
 data = senscritique.parse_and_cache(user_name='wok', data_type='collection')
 ```
 
-Soon: reviews and lists.
+### Reviews (« critiques »)
+
+Reviews can be downloaded as follows:
+
+```python
+import senscritique
+
+# Download in JSON format the collection of the given user
+data = senscritique.parse_and_cache(user_name='wok', data_type='critiques')
+```
+
+### Rankings (« listes »)
+
+Rankings can be downloaded as follows:
+
+```python
+import senscritique
+
+# Download in JSON format the collection of the given user
+data = senscritique.parse_and_cache(user_name='wok', data_type='listes')
+```
 
 ## References
 
