@@ -223,7 +223,7 @@ def parse_keyword_page(user_name='wok', keyword='collection', page_no=1):
     return page_data
 
 
-def parse_collection(user_name='wok', keyword='collection'):
+def parse_keyword(user_name='wok', keyword='collection'):
     url = get_keyword_home_url(user_name=user_name, keyword=keyword)
 
     num_pages = get_num_pages(url)
@@ -241,14 +241,6 @@ def parse_collection(user_name='wok', keyword='collection'):
         data.update(page_data)
 
     return data
-
-
-def parse_critiques(user_name='wok'):
-    return parse_collection(user_name=user_name, keyword='critiques')
-
-
-def parse_listes(user_name='wok'):
-    return parse_collection(user_name=user_name, keyword='listes')
 
 
 def get_data_folder():
@@ -289,11 +281,11 @@ def print_data(data, file_name=None):
 
 def parse(user_name='wok', data_type='collection'):
     if data_type == 'collection':
-        data = parse_collection(user_name=user_name)
+        data = parse_keyword(user_name=user_name, keyword='collection')
     elif data_type == 'critiques':
-        data = parse_critiques(user_name=user_name)
+        data = parse_keyword(user_name=user_name, keyword='critiques')
     elif data_type == 'listes':
-        data = parse_listes(user_name=user_name)
+        data = parse_keyword(user_name=user_name, keyword='listes')
     else:
         data = dict()
 
