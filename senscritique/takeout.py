@@ -164,11 +164,5 @@ def parse_and_cache(user_name='wok', data_type='collection'):
     return data
 
 
-def main():
-    data = parse_and_cache(user_name='wok', data_type='collection')
-
-    return True
-
-
 if __name__ == '__main__':
-    main()
+    data = parse_and_cache(user_name='wok', data_type='collection')
