@@ -91,7 +91,7 @@ def parse_critiques_page(user_name='wok', page_no=1):
     print(url)
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
 
-    collection_items = soup.find_all('article', {'class': 'ere-review ere-box '})
+    collection_items = soup.find_all('article', {'class': 'ere-review ere-box'})
 
     review_data = dict()
     for item in collection_items:
