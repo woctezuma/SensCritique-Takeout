@@ -37,7 +37,7 @@ class TestSensCritiqueMethods(unittest.TestCase):
     def test_parse_listes(self):
         data = senscritique.parse(user_name='zoruninho', data_type='listes')
         senscritique.print_data(data)
-        self.assertEqual(len(data), 15)
+        self.assertEqual(len(data), 17)
 
 
 if __name__ == '__main__':
