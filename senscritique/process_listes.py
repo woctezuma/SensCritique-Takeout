@@ -44,7 +44,7 @@ def parse_listes_page(user_name='wok', page_no=1):
             current_url = full_review_url + '#page-' + str(page_no + 1)
             full_soup = BeautifulSoup(requests.get(current_url).content, 'lxml')
 
-            description = full_soup.find_all('div', {'data-rel': 'linkify list-description'})
+            description = full_soup.find_all('div', {'data-rel': 'list-description'})
             listes_data[item_id]['description'] = read_soup_result(description)
 
             review_items = full_soup.find_all('div', {'class': 'elli-content'})
