@@ -19,7 +19,7 @@ def parse_listes_page(user_name='wok', page_no=1):
 
     listes_data = dict()
     for item in collection_items:
-        category = item.find_all('span', {'class': 'elth-universe-label type-1'})
+        category = item.find_all('span', {'class': 'elth-universe-label'})
         overview = item.find_all('a', {'class': 'elth-thumbnail-title'})
 
         link = overview[0].attrs['href']
