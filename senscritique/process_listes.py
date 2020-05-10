@@ -51,7 +51,7 @@ def parse_listes_page(user_name='wok', page_no=1):
 
             for review_item in review_items:
                 soup_content = review_item.find_all('a', {'class': 'elco-anchor'})
-                soup_comment = review_item.find_all('div', {'class': 'elli-annotation-content '})
+                soup_comment = review_item.find_all('div', {'class': 'elli-annotation-content'})
 
                 element = get_item_id(soup_content)
                 name = read_soup_result(soup_content)
