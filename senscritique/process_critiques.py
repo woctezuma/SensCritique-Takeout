@@ -11,7 +11,7 @@ def get_critiques_url(user_name, page_no=1):
     return url
 
 
-def parse_critiques_page(user_name='wok', page_no=1):
+def parse_critiques_page(user_name='wok', page_no=1, verbose=False):
     url = get_critiques_url(user_name=user_name, page_no=page_no)
     print(url)
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
@@ -55,5 +55,12 @@ def parse_critiques_page(user_name='wok', page_no=1):
             review_data[item_id]['content'] = read_soup_result(content)
             review_data[item_id]['upvotes'] = stats[0].attrs['data-sc-positive-count']
             review_data[item_id]['downvotes'] = stats[0].attrs['data-sc-negative-count']
+
+            if verbose:
+                print('-   item n°{}: (upvotes, downvotes) = ({}, {})'.format(
+                    item_id,
+                    review_data[item_id]['upvotes'],
+                    review_data[item_id]['downvotes'],
+                ))
 
     return review_data

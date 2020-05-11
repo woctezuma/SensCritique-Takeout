@@ -25,17 +25,17 @@ class TestSensCritiqueMethods(unittest.TestCase):
         self.assertDictEqual(downloaded_data, loaded_data)
 
     def test_parse_collection(self):
-        data = senscritique.parse(user_name=self.test_get_user_example(), data_type='collection')
+        data = senscritique.parse(user_name=self.test_get_user_example(), data_type='collection', verbose=True)
         senscritique.print_data(data)
         self.assertEqual(len(data), 1)
 
     def test_parse_critiques(self):
-        data = senscritique.parse(user_name='MrMez', data_type='critiques')
+        data = senscritique.parse(user_name='MrMez', data_type='critiques', verbose=True)
         senscritique.print_data(data)
         self.assertEqual(len(data), 2)
 
     def test_parse_listes(self):
-        data = senscritique.parse(user_name='Pop-Dan', data_type='listes')
+        data = senscritique.parse(user_name='Pop-Dan', data_type='listes', verbose=True)
         senscritique.print_data(data)
         self.assertEqual(len(data), 33)
 

@@ -19,20 +19,20 @@ def print_data(data, file_name=None):
     return
 
 
-def parse(user_name='wok', data_type='collection'):
+def parse(user_name='wok', data_type='collection', verbose=False):
     if data_type == 'collection':
-        data = parse_keyword(user_name=user_name, keyword='collection')
+        data = parse_keyword(user_name=user_name, keyword='collection', verbose=verbose)
     elif data_type == 'critiques':
-        data = parse_keyword(user_name=user_name, keyword='critiques')
+        data = parse_keyword(user_name=user_name, keyword='critiques', verbose=verbose)
     elif data_type == 'listes':
-        data = parse_keyword(user_name=user_name, keyword='listes')
+        data = parse_keyword(user_name=user_name, keyword='listes', verbose=verbose)
     else:
         data = dict()
 
     return data
 
 
-def parse_and_cache(user_name='wok', data_type='collection'):
+def parse_and_cache(user_name='wok', data_type='collection', verbose=False):
     save_file_name = get_data_folder() + get_save_filename(user_name=user_name, data_type=data_type)
 
     if pathlib.Path(save_file_name).is_file():
@@ -40,7 +40,7 @@ def parse_and_cache(user_name='wok', data_type='collection'):
         with open(save_file_name, 'r', encoding='utf8') as f:
             data = json.load(f)
     else:
-        data = parse(user_name=user_name, data_type=data_type)
+        data = parse(user_name=user_name, data_type=data_type, verbose=verbose)
         if len(data) > 0:
             print_data(data, save_file_name)
 

@@ -10,7 +10,7 @@ def get_collection_url(user_name, page_no=1):
     return url
 
 
-def parse_collection_page(user_name='wok', page_no=1):
+def parse_collection_page(user_name='wok', page_no=1, verbose=False):
     url = get_collection_url(user_name=user_name, page_no=page_no)
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
 
@@ -36,5 +36,11 @@ def parse_collection_page(user_name='wok', page_no=1):
         data[item_id]['description'] = read_soup_result(description)
         data[item_id]['game_system'] = read_soup_result(game_system)
         data[item_id]['release_date'] = read_soup_result(release_date)
+
+        if verbose:
+            print('-   item n°{}: {}'.format(
+                item_id,
+                data[item_id]['name'],
+            ))
 
     return data
