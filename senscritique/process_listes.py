@@ -39,15 +39,15 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
 
         listes_data[item_id]['elements'] = dict()
 
-        for page_no in range(num_pages):
+        for page_no in range(1, num_pages + 1):
 
             if verbose:
                 print('Page n°{}/{}:'.format(
-                    page_no + 1,
+                    page_no,
                     num_pages,
                 ))
 
-            current_url = full_review_url + '#page-' + str(page_no + 1)
+            current_url = full_review_url + '#page-' + str(page_no)
             full_soup = BeautifulSoup(requests.get(current_url).content, 'lxml')
 
             description = full_soup.find_all('div', {'data-rel': 'list-description'})
