@@ -31,7 +31,10 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
         listes_data[item_id]['name'] = read_soup_result(overview)
         listes_data[item_id]['link'] = link
 
-        print(listes_data[item_id]['name'])
+        print('List n°{}: {}'.format(
+            item_id,
+            listes_data[item_id]['name'],
+        ))
 
         full_review_url = get_base_url() + listes_data[item_id]['link']
 
