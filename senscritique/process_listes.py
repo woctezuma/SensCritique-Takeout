@@ -10,7 +10,7 @@ def get_listes_url(user_name, page_no=1):
     return url
 
 
-def parse_listes_page(user_name='wok', page_no=1):
+def parse_listes_page(user_name='wok', page_no=1, verbose=False):
     url = get_listes_url(user_name=user_name, page_no=page_no)
     print(url)
     soup = BeautifulSoup(requests.get(url).content, 'lxml')
@@ -41,6 +41,12 @@ def parse_listes_page(user_name='wok', page_no=1):
 
         for page_no in range(num_pages):
 
+            if verbose:
+                print('Page n°{}/{}:'.format(
+                    page_no + 1,
+                    num_pages + 1,
+                ))
+
             current_url = full_review_url + '#page-' + str(page_no + 1)
             full_soup = BeautifulSoup(requests.get(current_url).content, 'lxml')
 
@@ -56,6 +62,12 @@ def parse_listes_page(user_name='wok', page_no=1):
                 element = get_item_id(soup_content)
                 name = read_soup_result(soup_content)
                 comment = read_soup_result(soup_comment, simplify_text=False)
+
+                if verbose:
+                    print('-   item n°{}: {}'.format(
+                        element,
+                        name,
+                    ))
 
                 listes_data[item_id]['elements'][element] = dict()
                 listes_data[item_id]['elements'][element]['name'] = name
