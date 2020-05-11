@@ -44,7 +44,7 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
             if verbose:
                 print('Page n°{}/{}:'.format(
                     page_no + 1,
-                    num_pages + 1,
+                    num_pages,
                 ))
 
             current_url = full_review_url + '#page-' + str(page_no + 1)
