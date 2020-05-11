@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 from .parse_utils import get_item_id, get_num_pages
 from .utils import get_base_url, read_soup_result
+from .utils import get_url_for_liste
 
 
 def get_listes_url(user_name, page_no=1):
@@ -36,8 +37,8 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
             listes_data[item_id]['name'],
         ))
 
-        full_review_url = get_base_url() + listes_data[item_id]['link']
-
+        full_review_url = get_url_for_liste(item_id_for_liste=item_id,
+                                            page_no_within_list=None)
         num_pages = get_num_pages(full_review_url)
 
         listes_data[item_id]['elements'] = dict()
@@ -50,7 +51,8 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
                     num_pages,
                 ))
 
-            current_url = full_review_url + '#page-' + str(page_no_within_list)
+            current_url = get_url_for_liste(item_id_for_liste=item_id,
+                                            page_no_within_list=page_no_within_list)
             full_soup = BeautifulSoup(requests.get(current_url).content, 'lxml')
 
             description = full_soup.find_all('div', {'data-rel': 'list-description'})
