@@ -1,22 +1,11 @@
 # SensCritique Takeout
 
-[![PyPI status][PyPI image]][PyPI] [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Coveralls image]][Coveralls] [![Code coverage BIS][Codecov image]][Codecov]
-
-  [PyPI]: https://pypi.python.org/pypi/senscritique
-  [PyPI image]: https://badge.fury.io/py/senscritique.svg
-
-  [Build]: https://travis-ci.org/woctezuma/SensCritique-Takeout
-  [Build image]: https://travis-ci.org/woctezuma/SensCritique-Takeout.svg?branch=master
-
-  [PyUp]: https://pyup.io/repos/github/woctezuma/SensCritique-Takeout/
-  [Dependency image]: https://pyup.io/repos/github/woctezuma/SensCritique-Takeout/shield.svg
-  [Python3 image]: https://pyup.io/repos/github/woctezuma/SensCritique-Takeout/python-3-shield.svg
-
-  [Coveralls]: https://coveralls.io/github/woctezuma/SensCritique-Takeout?branch=master
-  [Coveralls image]: https://coveralls.io/repos/github/woctezuma/SensCritique-Takeout/badge.svg?branch=master
-
-  [Codecov]: https://codecov.io/gh/woctezuma/SensCritique-Takeout
-  [Codecov image]: https://codecov.io/gh/woctezuma/SensCritique-Takeout/branch/master/graph/badge.svg
+[![PyPI status][pypi-image]][pypi]
+[![Build status][build-image]][build]
+[![Updates][dependency-image]][pyup]
+[![Python 3][python3-image]][pyup]
+[![Code coverage][codecov-image]][codecov]
+[![Code Quality][codacy-image]][codacy]
 
 This repository contains Python code to export your data from [SensCritique.com](https://www.senscritique.com).
 
@@ -67,3 +56,21 @@ data = senscritique.parse_and_cache(user_name='wok', data_type='listes')
 
 - [Google Takeout](https://en.wikipedia.org/wiki/Google_Takeout)
 
+<!-- Definitions for badges -->
+
+[pypi]: <https://pypi.python.org/pypi/senscritique>
+[pypi-image]: <https://badge.fury.io/py/senscritique.svg>
+
+[build]: <https://github.com/woctezuma/senscritique/actions>
+[build-image]: <https://github.com/woctezuma/senscritique/workflows/Python package/badge.svg?branch=master>
+[publish-image]: <https://github.com/woctezuma/senscritique/workflows/Upload Python Package/badge.svg?branch=master>
+
+[pyup]: <https://pyup.io/repos/github/woctezuma/senscritique/>
+[dependency-image]: <https://pyup.io/repos/github/woctezuma/senscritique/shield.svg>
+[python3-image]: <https://pyup.io/repos/github/woctezuma/senscritique/python-3-shield.svg>
+
+[codecov]: <https://codecov.io/gh/woctezuma/senscritique>
+[codecov-image]: <https://codecov.io/gh/woctezuma/senscritique/branch/master/graph/badge.svg>
+
+[codacy]: <https://www.codacy.com/app/woctezuma/senscritique>
+[codacy-image]: <https://api.codacy.com/project/badge/Grade/5414284721184d139b48023a0467858d>
