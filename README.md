@@ -61,16 +61,16 @@ data = senscritique.parse_and_cache(user_name='wok', data_type='listes')
 [pypi]: <https://pypi.python.org/pypi/senscritique>
 [pypi-image]: <https://badge.fury.io/py/senscritique.svg>
 
-[build]: <https://github.com/woctezuma/senscritique/actions>
-[build-image]: <https://github.com/woctezuma/senscritique/workflows/Python package/badge.svg?branch=master>
-[publish-image]: <https://github.com/woctezuma/senscritique/workflows/Upload Python Package/badge.svg?branch=master>
+[build]: <https://github.com/woctezuma/SensCritique-Takeout/actions>
+[build-image]: <https://github.com/woctezuma/SensCritique-Takeout/workflows/Python package/badge.svg?branch=master>
+[publish-image]: <https://github.com/woctezuma/SensCritique-Takeout/workflows/Upload Python Package/badge.svg?branch=master>
 
-[pyup]: <https://pyup.io/repos/github/woctezuma/senscritique/>
-[dependency-image]: <https://pyup.io/repos/github/woctezuma/senscritique/shield.svg>
-[python3-image]: <https://pyup.io/repos/github/woctezuma/senscritique/python-3-shield.svg>
+[pyup]: <https://pyup.io/repos/github/woctezuma/SensCritique-Takeout/>
+[dependency-image]: <https://pyup.io/repos/github/woctezuma/SensCritique-Takeout/shield.svg>
+[python3-image]: <https://pyup.io/repos/github/woctezuma/SensCritique-Takeout/python-3-shield.svg>
 
-[codecov]: <https://codecov.io/gh/woctezuma/senscritique>
-[codecov-image]: <https://codecov.io/gh/woctezuma/senscritique/branch/master/graph/badge.svg>
+[codecov]: <https://codecov.io/gh/woctezuma/SensCritique-Takeout>
+[codecov-image]: <https://codecov.io/gh/woctezuma/SensCritique-Takeout/branch/master/graph/badge.svg>
 
-[codacy]: <https://www.codacy.com/app/woctezuma/senscritique>
+[codacy]: <https://www.codacy.com/app/woctezuma/SensCritique-Takeout>
 [codacy-image]: <https://api.codacy.com/project/badge/Grade/5414284721184d139b48023a0467858d>
