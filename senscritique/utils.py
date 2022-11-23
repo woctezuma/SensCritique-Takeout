@@ -3,7 +3,7 @@ def get_data_folder():
 
 
 def get_base_url(user_name=None):
-    url = 'https://www.senscritique.com/'
+    url = 'https://old.senscritique.com/'
     if user_name is not None:
         url += user_name + '/'
     return url
