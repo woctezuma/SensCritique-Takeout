@@ -6,7 +6,7 @@ import senscritique
 class TestSensCritiqueMethods(unittest.TestCase):
     @classmethod
     def test_get_user_example(cls):
-        example_user_name = 'عمرlلعرفlوي'
+        example_user_name = 'Pipo'
 
         return example_user_name
 
@@ -36,7 +36,7 @@ class TestSensCritiqueMethods(unittest.TestCase):
             verbose=True,
         )
         senscritique.print_data(data)
-        self.assertEqual(len(data), 1)
+        self.assertEqual(len(data), 6)
 
     def test_parse_critiques(self):
         data = senscritique.parse(
