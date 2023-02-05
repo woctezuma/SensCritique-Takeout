@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def get_item_id(soup_name):
-    return soup_name[0].attrs['id'].strip('product-title-')
+    return soup_name[0].attrs['id'].replace('product-title-', '')
 
 
 def get_review_id(soup_name):
