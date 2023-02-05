@@ -1,7 +1,7 @@
-from .parse_utils import get_num_pages
-from .process_collection import get_collection_url, parse_collection_page
-from .process_critiques import get_critiques_url, parse_critiques_page
-from .process_listes import get_listes_url, parse_listes_page
+from senscritique.parse_utils import get_num_pages
+from senscritique.process_collection import get_collection_url, parse_collection_page
+from senscritique.process_critiques import get_critiques_url, parse_critiques_page
+from senscritique.process_listes import get_listes_url, parse_listes_page
 
 
 def get_keyword_home_url(user_name='wok', keyword='collection'):

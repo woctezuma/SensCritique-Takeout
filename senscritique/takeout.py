@@ -1,9 +1,9 @@
 import json
 import pathlib
 
-from .data_utils import get_save_filename
-from .process_generic import parse_keyword
-from .utils import get_data_folder
+from senscritique.data_utils import get_save_filename
+from senscritique.process_generic import parse_keyword
+from senscritique.utils import get_data_folder
 
 
 def print_data(data, file_name=None):

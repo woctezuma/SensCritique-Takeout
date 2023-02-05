@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-from .parse_utils import get_item_id, get_num_pages
-from .utils import get_base_url, get_url_for_liste, read_soup_result
+from senscritique.parse_utils import get_item_id, get_num_pages
+from senscritique.utils import get_base_url, get_url_for_liste, read_soup_result
 
 
 def get_listes_url(user_name, page_no=1):

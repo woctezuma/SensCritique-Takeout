@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-from .parse_utils import get_review_id
-from .utils import get_base_url, read_soup_result
+from senscritique.parse_utils import get_review_id
+from senscritique.utils import get_base_url, read_soup_result
 
 
 def get_critiques_url(user_name, page_no=1):
