@@ -1,5 +1,6 @@
 import json
 import pathlib
+from pathlib import Path
 
 from senscritique.data_utils import get_save_filename
 from senscritique.process_generic import parse_keyword
@@ -13,7 +14,7 @@ def print_data(data, file_name=None):
         # Reference of the following line: https://stackoverflow.com/a/14364249
         pathlib.Path(get_data_folder()).mkdir(parents=True, exist_ok=True)
 
-        with open(file_name, 'w', encoding='utf8') as f:
+        with Path(file_name).open('w', encoding='utf8') as f:
             f.write(json.dumps(data))
 
     return
@@ -40,7 +41,7 @@ def parse_and_cache(user_name='wok', data_type='collection', verbose=False):
 
     if pathlib.Path(save_file_name).is_file():
         print('File ' + save_file_name + ' already exists.')
-        with open(save_file_name, encoding='utf8') as f:
+        with Path(save_file_name).open(encoding='utf8') as f:
             data = json.load(f)
     else:
         data = parse(user_name=user_name, data_type=data_type, verbose=verbose)
