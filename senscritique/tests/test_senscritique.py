@@ -6,7 +6,7 @@ import senscritique
 class TestSensCritiqueMethods(unittest.TestCase):
     @classmethod
     def test_get_user_example(cls):
-        example_user_name = 'عمرالعرفاوي'
+        example_user_name = 'عمرlلعرفlوي'
 
         return example_user_name
 

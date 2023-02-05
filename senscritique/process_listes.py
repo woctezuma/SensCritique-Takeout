@@ -2,8 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from .parse_utils import get_item_id, get_num_pages
-from .utils import get_base_url, read_soup_result
-from .utils import get_url_for_liste
+from .utils import get_base_url, get_url_for_liste, read_soup_result
 
 
 def get_listes_url(user_name, page_no=1):
@@ -20,7 +19,7 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
 
     collection_items = soup.find_all('li', {'class': 'elth-thumbnail by3'})
 
-    listes_data = dict()
+    listes_data = {}
     for item in collection_items:
         category = item.find_all('span', {'class': 'elth-universe-label'})
         overview = item.find_all('a', {'class': 'elth-thumbnail-title'})
@@ -29,7 +28,7 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
 
         item_id = int(link.rsplit('/')[-1])
 
-        listes_data[item_id] = dict()
+        listes_data[item_id] = {}
         listes_data[item_id]['category'] = read_soup_result(category)
         listes_data[item_id]['name'] = read_soup_result(overview)
         listes_data[item_id]['link'] = link
@@ -47,7 +46,7 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
         )
         num_pages = get_num_pages(full_review_url)
 
-        listes_data[item_id]['elements'] = dict()
+        listes_data[item_id]['elements'] = {}
 
         for page_no_within_list in range(1, num_pages + 1):
             if verbose:
@@ -88,7 +87,7 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
                         ),
                     )
 
-                listes_data[item_id]['elements'][element] = dict()
+                listes_data[item_id]['elements'][element] = {}
                 listes_data[item_id]['elements'][element]['name'] = name
                 listes_data[item_id]['elements'][element]['comment'] = comment
 

@@ -45,9 +45,9 @@ def parse_keyword(user_name='wok', keyword='collection', verbose=False):
 
     num_pages = get_num_pages(url)
 
-    print('Parsing {} pages of {} by {}.'.format(num_pages, keyword, user_name))
+    print(f'Parsing {num_pages} pages of {keyword} by {user_name}.')
 
-    data = dict()
+    data = {}
     for page_no in range(num_pages):
         real_page_no = page_no + 1
 

@@ -18,7 +18,7 @@ def parse_critiques_page(user_name='wok', page_no=1, verbose=False):
 
     collection_items = soup.find_all('article', {'class': 'ere-review ere-box'})
 
-    review_data = dict()
+    review_data = {}
     for item in collection_items:
         overview = item.find_all('button', {'class': 'ere-review-overview'})
         title = item.find_all('h3', {'class': 'd-heading2 ere-review-heading'})
@@ -30,7 +30,7 @@ def parse_critiques_page(user_name='wok', page_no=1, verbose=False):
 
         item_id = get_review_id(overview)
 
-        review_data[item_id] = dict()
+        review_data[item_id] = {}
         review_data[item_id]['title'] = read_soup_result(title)
         review_data[item_id]['excerpt'] = read_soup_result(excerpt)
         review_data[item_id]['game_system'] = read_soup_result(game_system)

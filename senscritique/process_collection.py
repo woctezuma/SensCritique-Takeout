@@ -20,7 +20,7 @@ def parse_collection_page(user_name='wok', page_no=1, verbose=False):
 
     collection_items = soup.find_all('li', 'elco-collection-item')
 
-    data = dict()
+    data = {}
     for item in collection_items:
         user_rating = item.find_all('div', {'class': 'elco-collection-rating user'})
         name = item.find_all('a', {'class': 'elco-anchor'})
@@ -32,7 +32,7 @@ def parse_collection_page(user_name='wok', page_no=1, verbose=False):
 
         item_id = get_item_id(name)
 
-        data[item_id] = dict()
+        data[item_id] = {}
         data[item_id]['name'] = read_soup_result(name)
         data[item_id]['author'] = read_soup_result(author)
         data[item_id]['user_rating'] = read_soup_result(user_rating)

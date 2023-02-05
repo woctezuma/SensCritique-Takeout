@@ -27,7 +27,7 @@ def parse(user_name='wok', data_type='collection', verbose=False):
     elif data_type == 'listes':
         data = parse_keyword(user_name=user_name, keyword='listes', verbose=verbose)
     else:
-        data = dict()
+        data = {}
 
     return data
 
@@ -40,7 +40,7 @@ def parse_and_cache(user_name='wok', data_type='collection', verbose=False):
 
     if pathlib.Path(save_file_name).is_file():
         print('File ' + save_file_name + ' already exists.')
-        with open(save_file_name, 'r', encoding='utf8') as f:
+        with open(save_file_name, encoding='utf8') as f:
             data = json.load(f)
     else:
         data = parse(user_name=user_name, data_type=data_type, verbose=verbose)
