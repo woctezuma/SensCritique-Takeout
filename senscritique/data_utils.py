@@ -15,6 +15,8 @@ def get_save_filename(user_name='wok', data_type='collection'):
     current_date = time.strftime(date_format)
 
     # Database filename
-    save_filename = current_date + sep + user_name + sep + data_type + json_filename_suffix
+    save_filename = (
+        current_date + sep + user_name + sep + data_type + json_filename_suffix
+    )
 
     return save_filename

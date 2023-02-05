@@ -6,7 +6,11 @@ from .utils import get_base_url, read_soup_result
 
 
 def get_collection_url(user_name, page_no=1):
-    url = get_base_url(user_name=user_name) + 'collection/all/all/all/all/all/all/all/all/all/page-' + str(page_no)
+    url = (
+        get_base_url(user_name=user_name)
+        + 'collection/all/all/all/all/all/all/all/all/all/page-'
+        + str(page_no)
+    )
     return url
 
 
@@ -38,9 +42,11 @@ def parse_collection_page(user_name='wok', page_no=1, verbose=False):
         data[item_id]['release_date'] = read_soup_result(release_date)
 
         if verbose:
-            print('-   item n°{}: {}'.format(
-                item_id,
-                data[item_id]['name'],
-            ))
+            print(
+                '-   item n°{}: {}'.format(
+                    item_id,
+                    data[item_id]['name'],
+                ),
+            )
 
     return data

@@ -7,7 +7,9 @@ from .utils import get_url_for_liste
 
 
 def get_listes_url(user_name, page_no=1):
-    url = get_base_url(user_name=user_name) + 'listes/all/all/likes/page-' + str(page_no)
+    url = (
+        get_base_url(user_name=user_name) + 'listes/all/all/likes/page-' + str(page_no)
+    )
     return url
 
 
@@ -32,27 +34,34 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
         listes_data[item_id]['name'] = read_soup_result(overview)
         listes_data[item_id]['link'] = link
 
-        print('List n°{}: {}'.format(
-            item_id,
-            listes_data[item_id]['name'],
-        ))
+        print(
+            'List n°{}: {}'.format(
+                item_id,
+                listes_data[item_id]['name'],
+            ),
+        )
 
-        full_review_url = get_url_for_liste(item_id_for_liste=item_id,
-                                            page_no_within_list=None)
+        full_review_url = get_url_for_liste(
+            item_id_for_liste=item_id,
+            page_no_within_list=None,
+        )
         num_pages = get_num_pages(full_review_url)
 
         listes_data[item_id]['elements'] = dict()
 
         for page_no_within_list in range(1, num_pages + 1):
-
             if verbose:
-                print('Page n°{}/{}:'.format(
-                    page_no_within_list,
-                    num_pages,
-                ))
+                print(
+                    'Page n°{}/{}:'.format(
+                        page_no_within_list,
+                        num_pages,
+                    ),
+                )
 
-            current_url = get_url_for_liste(item_id_for_liste=item_id,
-                                            page_no_within_list=page_no_within_list)
+            current_url = get_url_for_liste(
+                item_id_for_liste=item_id,
+                page_no_within_list=page_no_within_list,
+            )
             full_soup = BeautifulSoup(requests.get(current_url).content, 'lxml')
 
             description = full_soup.find_all('div', {'data-rel': 'list-description'})
@@ -62,17 +71,22 @@ def parse_listes_page(user_name='wok', page_no=1, verbose=False):
 
             for review_item in review_items:
                 soup_content = review_item.find_all('a', {'class': 'elco-anchor'})
-                soup_comment = review_item.find_all('div', {'class': 'elli-annotation-content'})
+                soup_comment = review_item.find_all(
+                    'div',
+                    {'class': 'elli-annotation-content'},
+                )
 
                 element = get_item_id(soup_content)
                 name = read_soup_result(soup_content)
                 comment = read_soup_result(soup_comment, simplify_text=False)
 
                 if verbose:
-                    print('-   item n°{}: {}'.format(
-                        element,
-                        name,
-                    ))
+                    print(
+                        '-   item n°{}: {}'.format(
+                            element,
+                            name,
+                        ),
+                    )
 
                 listes_data[item_id]['elements'][element] = dict()
                 listes_data[item_id]['elements'][element]['name'] = name

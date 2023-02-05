@@ -57,10 +57,12 @@ def parse_critiques_page(user_name='wok', page_no=1, verbose=False):
             review_data[item_id]['downvotes'] = stats[0].attrs['data-sc-negative-count']
 
             if verbose:
-                print('-   item n°{}: (upvotes, downvotes) = ({}, {})'.format(
-                    item_id,
-                    review_data[item_id]['upvotes'],
-                    review_data[item_id]['downvotes'],
-                ))
+                print(
+                    '-   item n°{}: (upvotes, downvotes) = ({}, {})'.format(
+                        item_id,
+                        review_data[item_id]['upvotes'],
+                        review_data[item_id]['downvotes'],
+                    ),
+                )
 
     return review_data

@@ -33,7 +33,10 @@ def parse(user_name='wok', data_type='collection', verbose=False):
 
 
 def parse_and_cache(user_name='wok', data_type='collection', verbose=False):
-    save_file_name = get_data_folder() + get_save_filename(user_name=user_name, data_type=data_type)
+    save_file_name = get_data_folder() + get_save_filename(
+        user_name=user_name,
+        data_type=data_type,
+    )
 
     if pathlib.Path(save_file_name).is_file():
         print('File ' + save_file_name + ' already exists.')

@@ -4,7 +4,6 @@ import senscritique
 
 
 class TestSensCritiqueMethods(unittest.TestCase):
-
     @classmethod
     def test_get_user_example(cls):
         example_user_name = 'عمرالعرفاوي'
@@ -18,19 +17,33 @@ class TestSensCritiqueMethods(unittest.TestCase):
 
     def test_parse_and_cache(self):
         # Download
-        downloaded_data = senscritique.parse_and_cache(user_name=self.test_get_user_example(), data_type='collection')
+        downloaded_data = senscritique.parse_and_cache(
+            user_name=self.test_get_user_example(),
+            data_type='collection',
+        )
         # Load from cache
-        loaded_data = senscritique.parse_and_cache(user_name=self.test_get_user_example(), data_type='collection')
+        loaded_data = senscritique.parse_and_cache(
+            user_name=self.test_get_user_example(),
+            data_type='collection',
+        )
 
         self.assertDictEqual(downloaded_data, loaded_data)
 
     def test_parse_collection(self):
-        data = senscritique.parse(user_name=self.test_get_user_example(), data_type='collection', verbose=True)
+        data = senscritique.parse(
+            user_name=self.test_get_user_example(),
+            data_type='collection',
+            verbose=True,
+        )
         senscritique.print_data(data)
         self.assertEqual(len(data), 1)
 
     def test_parse_critiques(self):
-        data = senscritique.parse(user_name='MrMez', data_type='critiques', verbose=True)
+        data = senscritique.parse(
+            user_name='MrMez',
+            data_type='critiques',
+            verbose=True,
+        )
         senscritique.print_data(data)
         self.assertEqual(len(data), 2)
 

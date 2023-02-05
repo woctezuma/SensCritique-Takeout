@@ -19,11 +19,23 @@ def get_keyword_home_url(user_name='wok', keyword='collection'):
 
 def parse_keyword_page(user_name='wok', keyword='collection', page_no=1, verbose=False):
     if keyword == 'collection':
-        page_data = parse_collection_page(user_name=user_name, page_no=page_no, verbose=verbose)
+        page_data = parse_collection_page(
+            user_name=user_name,
+            page_no=page_no,
+            verbose=verbose,
+        )
     elif keyword == 'critiques':
-        page_data = parse_critiques_page(user_name=user_name, page_no=page_no, verbose=verbose)
+        page_data = parse_critiques_page(
+            user_name=user_name,
+            page_no=page_no,
+            verbose=verbose,
+        )
     else:
-        page_data = parse_listes_page(user_name=user_name, page_no=page_no, verbose=verbose)
+        page_data = parse_listes_page(
+            user_name=user_name,
+            page_no=page_no,
+            verbose=verbose,
+        )
 
     return page_data
 
@@ -39,9 +51,20 @@ def parse_keyword(user_name='wok', keyword='collection', verbose=False):
     for page_no in range(num_pages):
         real_page_no = page_no + 1
 
-        page_data = parse_keyword_page(user_name=user_name, keyword=keyword, page_no=real_page_no, verbose=verbose)
+        page_data = parse_keyword_page(
+            user_name=user_name,
+            keyword=keyword,
+            page_no=real_page_no,
+            verbose=verbose,
+        )
 
-        print('[{} ; page n°{}] num_items = {}'.format(keyword, real_page_no, len(page_data)))
+        print(
+            '[{} ; page n°{}] num_items = {}'.format(
+                keyword,
+                real_page_no,
+                len(page_data),
+            ),
+        )
 
         data.update(page_data)
 
