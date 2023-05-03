@@ -1,3 +1,4 @@
+import re
 import requests
 from bs4 import BeautifulSoup
 
@@ -23,6 +24,11 @@ def parse_collection_page(user_name='wok', page_no=1, verbose=False):
     data = {}
     for item in collection_items:
         user_rating = item.find_all('div', {'class': 'elco-collection-rating user'})
+        item_type_p = item.find('div', {'class': re.compile("^d-media-[a-z]+$")})
+        item_type = "unknown"
+        if item_type_p:
+            if 'data-sc-play-type' in item_type_p:
+                item_type = item_type_p['data-sc-play-type']
         name = item.find_all('a', {'class': 'elco-anchor'})
         game_system = item.find_all('span', {'class': 'elco-gamesystem'})
         release_date = item.find_all('span', {'class': 'elco-date'})
@@ -40,6 +46,7 @@ def parse_collection_page(user_name='wok', page_no=1, verbose=False):
         data[item_id]['description'] = read_soup_result(description)
         data[item_id]['game_system'] = read_soup_result(game_system)
         data[item_id]['release_date'] = read_soup_result(release_date)
+        data[item_id]['item_type'] = item_type
 
         if verbose:
             print(
