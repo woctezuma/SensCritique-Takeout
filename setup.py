@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='senscritique',
-    version='0.5.3',
+    version='0.5.4',
     author='Wok',
     author_email='wok@tuta.io',
     description='SensCritique Takeout on PyPI',
@@ -13,7 +13,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/woctezuma/SensCritique-Takeout',
-    download_url='https://github.com/woctezuma/SensCritique-Takeout/archive/0.5.3.tar.gz',
+    download_url='https://github.com/woctezuma/SensCritique-Takeout/archive/0.5.4.tar.gz',
     packages=setuptools.find_packages(),
     install_requires=[
         'beautifulsoup4',
