@@ -27,8 +27,7 @@ def parse_collection_page(user_name='wok', page_no=1, verbose=False):
         item_type_p = item.find('div', {'class': re.compile("^d-media-[a-z]+$")})
         item_type = "unknown"
         if item_type_p:
-            if 'data-sc-play-type' in item_type_p:
-                item_type = item_type_p['data-sc-play-type']
+            item_type = item_type_p.get('data-sc-play-type') or "unknown"
         name = item.find_all('a', {'class': 'elco-anchor'})
         game_system = item.find_all('span', {'class': 'elco-gamesystem'})
         release_date = item.find_all('span', {'class': 'elco-date'})
