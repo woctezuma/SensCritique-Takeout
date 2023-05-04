@@ -38,6 +38,18 @@ class TestSensCritiqueMethods(unittest.TestCase):
         senscritique.print_data(data)
         self.assertEqual(len(data), 6)
 
+    def test_presence_of_different_item_types(self):
+        data = senscritique.parse(
+            user_name=self.test_get_user_example(),
+            data_type='collection',
+            verbose=True,
+        )
+        all_types = {element['item_type'] for element in data.values()}
+        senscritique.print_data(all_types)
+        self.assertIn('unknown', all_types)
+        self.assertIn('videos', all_types)
+        self.assertEqual(len(all_types), 2)
+
     def test_parse_critiques(self):
         data = senscritique.parse(
             user_name='MrMez',
